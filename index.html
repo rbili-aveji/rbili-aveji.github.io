@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
   <ul class="nav-links">
     <li><a href="#products">პროდუქტები</a></li>
     <li><a href="#how">შეკვეთა</a></li>
-    <li><a href="#installment">განვადება</a></li>
+    
     <li><a href="tel:+995598120426" class="nav-phone">📞 598 12 04 26</a></li>
     <li><a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="nav-cta">Facebook</a></li>
   </ul>
@@ -34,7 +34,7 @@
 <div class="mobile-menu">
   <a href="#products">პროდუქტები</a>
   <a href="#how">შეკვეთის პროცესი</a>
-  <a href="#installment">განვადება</a>
+  
   <a href="tel:+995598120426">📞 598 12 04 26</a>
   <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank">📘 Facebook გვერდი</a>
 </div>
@@ -59,7 +59,7 @@
   </div>
   <div class="hero-image">
     <div class="hero-img-wrap">
-      <img src="images/sofa-luxury.jpg" alt="ლუქს დივანი">
+      <img src="sofa-luxury.jpg" alt="ლუქს დივანი">
       <div class="hero-img-badge">
         <span class="num">5+</span>
         <span class="label">წელი გამოცდილება</span>
@@ -98,27 +98,39 @@
   </div>
   <div class="products-grid">
     <div class="product-card reveal" data-delay="0">
-      <img src="images/sofa-luxury.jpg" alt="ლუქს დივანი">
+      <img src="sofa-luxury.jpg" alt="ლუქს დივანი">
       <div class="product-info">
         <div class="product-name">ლუქს დივანი</div>
         <p class="product-desc">თანამედროვე სტილი ოქროს დეტალებით. სრულყოფილი ნებისმიერი თანამედროვე ინტერიერისთვის.</p>
-        <span class="product-tag">✦ შეკვეთით</span>
+        <div class="product-price">1 100 ₾</div>
+        <div class="product-btns">
+          <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="btn-buy">🛒 შეკვეთა</a>
+          <button class="btn-installment" disabled title="მალე">განვადება</button>
+        </div>
       </div>
     </div>
     <div class="product-card reveal" data-delay="150">
-      <img src="images/sofa-classic.jpg" alt="კლასიკური სამეული">
+      <img src="sofa-classic.jpg" alt="კლასიკური სამეული">
       <div class="product-info">
         <div class="product-name">კლასიკური სამეული</div>
         <p class="product-desc">კლასიკური ელეგანტურობა მდიდარ ფერებში. ხავერდოვანი ქსოვილი, მაქსიმალური კომფორტი.</p>
-        <span class="product-tag">✦ შეკვეთით</span>
+        <div class="product-price">450 ₾</div>
+        <div class="product-btns">
+          <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="btn-buy">🛒 შეკვეთა</a>
+          <button class="btn-installment" disabled title="მალე">განვადება</button>
+        </div>
       </div>
     </div>
     <div class="product-card reveal" data-delay="300">
-      <img src="images/sofa-corner.jpg" alt="კუთხის სამეული">
+      <img src="sofa-corner.jpg" alt="კუთხის სამეული">
       <div class="product-info">
         <div class="product-name">კუთხის სამეული</div>
         <p class="product-desc">ფუნქციური კუთხის სამეული ოჯახური სივრცისთვის. დივანი + სავარძელი + ჟურნალის მაგიდა.</p>
-        <span class="product-tag">✦ შეკვეთით</span>
+        <div class="product-price">750 ₾</div>
+        <div class="product-btns">
+          <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="btn-buy">🛒 შეკვეთა</a>
+          <button class="btn-installment" disabled title="მალე">განვადება</button>
+        </div>
       </div>
     </div>
   </div>
@@ -161,43 +173,6 @@
 </section>
 
 
-<!-- ════════════ INSTALLMENT ════════════ -->
-<section class="installment" id="installment">
-  <div class="installment-text reveal">
-    <div class="section-tag">სპეციალური შეთავაზება</div>
-    <h2 class="section-title">განვადება —<br>გახადე ხელმისაწვდომი</h2>
-    <p class="installment-desc">
-      გჭირდება სარემონტო ხარჯების გამო ბიუჯეტი შეზღუდული?
-      გთავაზობთ მოქნილ განვადებას — გადაიხადე ნაწილ-ნაწილ,
-      ისარგებლე ახლავე!
-    </p>
-    <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="btn-primary">📘 განვადებაზე გაიგეთ მეტი</a>
-  </div>
-  <div class="installment-features reveal" data-delay="200">
-    <div class="inst-feature">
-      <div class="inst-icon">💳</div>
-      <div>
-        <div class="inst-title">უპროცენტო განვადება</div>
-        <p class="inst-desc">გადაიხადეთ 3, 6 ან 12 თვეში — ყოველგვარი დამატებითი გადასახადის გარეშე</p>
-      </div>
-    </div>
-    <div class="inst-feature">
-      <div class="inst-icon">✅</div>
-      <div>
-        <div class="inst-title">მარტივი პირობები</div>
-        <p class="inst-desc">მინიმალური წინასწარი გადახდა, მოქნილი განვადების გრაფიკი</p>
-      </div>
-    </div>
-    <div class="inst-feature">
-      <div class="inst-icon">⚡</div>
-      <div>
-        <div class="inst-title">სწრაფი დამტკიცება</div>
-        <p class="inst-desc">Facebook-ზე მოგვწერეთ და 24 საათში განვიხილავთ განაცხადს</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <!-- ════════════ FACEBOOK CTA ════════════ -->
 <section class="fb-section" id="contact">
@@ -222,17 +197,24 @@
 
 <!-- ════════════ FOOTER ════════════ -->
 <footer>
-  <a href="#" class="footer-logo">რბილი <span>AvEji</span></a>
-  <div class="footer-copy">© 2025 რბილი AvEji. ყველა უფლება დაცულია.</div>
-  <div class="footer-links">
-    <a href="#products">კოლექცია</a>
-    <a href="#installment">განვადება</a>
-    <a href="tel:+995598120426">📞 598 12 04 26</a>
-    <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank">Facebook</a>
+  <div class="footer-top">
+    <a href="#" class="footer-logo">რბილი <span>AvEji</span></a>
+    <div class="footer-links">
+      <a href="#products">კოლექცია</a>
+      <a href="#how">შეკვეთა</a>
+      <a href="tel:+995598120426">📞 598 12 04 26</a>
+      <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank">Facebook</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 რბილი AvEji. ყველა უფლება დაცულია.</span>
+    <div class="footer-legal">
+      <a href="terms.html">წესები და პირობები</a>
+    </div>
   </div>
 </footer>
 
 <!-- JavaScript -->
-<script src="js/main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
