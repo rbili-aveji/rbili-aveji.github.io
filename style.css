@@ -490,3 +490,14 @@ footer {
   .footer-bottom { padding: 14px 24px; flex-direction: column; text-align: center; }
   .footer-legal { flex-wrap: wrap; justify-content: center; }
 }
+
+/* ── PRODUCT BADGE ── */
+.product-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(91,45,142,0.08), rgba(201,168,76,0.12));
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold-dark);
+  font-size: 0.7rem; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 20px;
+  margin-bottom: 8px; font-weight: 500;
+}
