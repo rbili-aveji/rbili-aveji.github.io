@@ -421,19 +421,18 @@ footer {
 .btn-buy:hover { background: var(--purple-dark); transform: translateY(-1px); }
 .btn-installment {
   display: inline-flex; align-items: center; gap: 8px;
-  border: 2px solid rgba(201,168,76,0.4);
-  background: transparent; color: var(--text-light);
+  border: 2px solid var(--gold);
+  background: transparent; color: var(--gold-dark);
   padding: 10px 20px; border-radius: 2px;
   font-size: 0.82rem; font-weight: 600;
-  cursor: not-allowed; font-family: 'Montserrat', sans-serif;
-  position: relative;
+  cursor: pointer; font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+  transition: all 0.3s;
 }
-.btn-installment::after {
-  content: 'მალე';
-  position: absolute; top: -8px; right: -8px;
-  background: var(--gold); color: white;
-  font-size: 0.6rem; padding: 2px 6px;
-  border-radius: 10px; letter-spacing: 0.5px;
+.btn-installment:hover {
+  background: var(--gold);
+  color: white;
+  transform: translateY(-1px);
 }
 
 /* ── FOOTER REDESIGN ── */
@@ -489,15 +488,4 @@ footer {
   .footer-top { padding: 28px 24px; }
   .footer-bottom { padding: 14px 24px; flex-direction: column; text-align: center; }
   .footer-legal { flex-wrap: wrap; justify-content: center; }
-}
-
-/* ── PRODUCT BADGE ── */
-.product-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, rgba(91,45,142,0.08), rgba(201,168,76,0.12));
-  border: 1px solid rgba(201,168,76,0.3);
-  color: var(--gold-dark);
-  font-size: 0.7rem; letter-spacing: 1px;
-  padding: 3px 10px; border-radius: 20px;
-  margin-bottom: 8px; font-weight: 500;
 }

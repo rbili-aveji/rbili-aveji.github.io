@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>განვადება — რბილი AvEji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .installment-page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 120px 40px 80px;
+    }
+    .installment-page h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.7rem;
+      color: var(--purple-dark);
+      margin-bottom: 10px;
+    }
+    .installment-page p {
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--purple);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    .bank-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .bank-card {
+      border: 1px solid rgba(201,168,76,0.45);
+      background: var(--white);
+      border-radius: 6px;
+      padding: 24px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .bank-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+      box-shadow: 0 12px 35px rgba(61,26,102,0.12);
+    }
+    .bank-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--purple-dark);
+      margin-bottom: 6px;
+    }
+    .bank-desc {
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+    @media (max-width: 900px) {
+      .installment-page { padding: 100px 24px 56px; }
+      .bank-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">რბილი<span> AvEji</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#products">პროდუქტები</a></li>
+      <li><a href="index.html#how">შეკვეთა</a></li>
+      <li><a href="index.html#contact">კონტაქტი</a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="nav-cta">Facebook</a></li>
+    </ul>
+  </nav>
+
+  <main class="installment-page">
+    <a href="index.html" class="back-btn">← მთავარ გვერდზე დაბრუნება</a>
+    <h1>განვადება</h1>
+    <p>აირჩიეთ სასურველი ბანკი და გააგრძელეთ განაცხადი შესაბამის პლატფორმაზე.</p>
+
+    <div class="bank-grid">
+      <a class="bank-card" href="https://bankofgeorgia.ge" target="_blank">
+        <div class="bank-name">BOG</div>
+        <div class="bank-desc">საქართველოს ბანკი</div>
+      </a>
+      <a class="bank-card" href="https://tbcbank.ge" target="_blank">
+        <div class="bank-name">TBC</div>
+        <div class="bank-desc">TBC Bank</div>
+      </a>
+      <a class="bank-card" href="https://credobank.ge" target="_blank">
+        <div class="bank-name">Credo</div>
+        <div class="bank-desc">Credo Bank</div>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-top">
+      <a href="index.html" class="footer-logo">რბილი <span>AvEji</span></a>
+      <div class="footer-links">
+        <a href="index.html#products">კოლექცია</a>
+        <a href="tel:+995598120426">📞 598 12 04 26</a>
+        <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank">Facebook</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 რბილი AvEji. ყველა უფლება დაცულია.</span>
+      <div class="footer-legal">
+        <a href="terms.html">წესები და პირობები</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
