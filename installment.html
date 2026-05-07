@@ -52,6 +52,29 @@
       border-color: var(--gold);
       box-shadow: 0 12px 35px rgba(61,26,102,0.12);
     }
+    .bank-logo {
+      width: 100%;
+      max-width: 170px;
+      height: 58px;
+      object-fit: contain;
+      margin: 0 auto 10px;
+      display: block;
+    }
+    .bog-card {
+      border: 2px solid var(--gold);
+      box-shadow: 0 10px 28px rgba(201,168,76,0.18);
+      background: linear-gradient(180deg, #fffdf7 0%, #ffffff 100%);
+    }
+    .tbc-card {
+      border: 2px solid rgba(0, 111, 214, 0.35);
+      box-shadow: 0 10px 28px rgba(0, 111, 214, 0.12);
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+    }
+    .credo-card {
+      border: 2px solid rgba(230, 53, 40, 0.35);
+      box-shadow: 0 10px 28px rgba(230, 53, 40, 0.12);
+      background: linear-gradient(180deg, #fff9f8 0%, #ffffff 100%);
+    }
     .bank-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
@@ -85,15 +108,18 @@
     <p>აირჩიეთ სასურველი ბანკი და გააგრძელეთ განაცხადი შესაბამის პლატფორმაზე.</p>
 
     <div class="bank-grid">
-      <a class="bank-card" href="https://bankofgeorgia.ge" target="_blank">
+      <a class="bank-card bog-card" href="https://bankofgeorgia.ge" target="_blank">
+        <img class="bank-logo" src="Bank_of_Georgia_logo.png" alt="საქართველოს ბანკის ლოგო">
         <div class="bank-name">BOG</div>
         <div class="bank-desc">საქართველოს ბანკი</div>
       </a>
-      <a class="bank-card" href="https://tbcbank.ge" target="_blank">
+      <a class="bank-card tbc-card" href="https://tbcbank.ge" target="_blank">
+        <img class="bank-logo" src="Tbc-logo-ka_GE.svg.png" alt="თიბისი ბანკის ლოგო">
         <div class="bank-name">TBC</div>
         <div class="bank-desc">TBC Bank</div>
       </a>
-      <a class="bank-card" href="https://credobank.ge" target="_blank">
+      <a class="bank-card credo-card" href="https://credobank.ge" target="_blank">
+        <img class="bank-logo" src="credo.png" alt="კრედო ბანკის ლოგო">
         <div class="bank-name">Credo</div>
         <div class="bank-desc">Credo Bank</div>
       </a>
