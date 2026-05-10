@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
+    /* ── Page Layout ── */
     .installment-page {
       max-width: 980px;
       margin: 0 auto;
@@ -18,10 +19,10 @@
       color: var(--purple-dark);
       margin-bottom: 10px;
     }
-    .installment-page p {
+    .installment-page > p {
       color: var(--text-mid);
       line-height: 1.8;
-      margin-bottom: 28px;
+      margin-bottom: 40px;
     }
     .back-btn {
       display: inline-flex;
@@ -33,10 +34,14 @@
       font-weight: 500;
       margin-bottom: 28px;
     }
+    .back-btn:hover { color: var(--purple-dark); }
+
+    /* ── Bank Grid ── */
     .bank-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(200px, 1fr));
       gap: 16px;
+      margin-bottom: 48px;
     }
     .bank-card {
       border: 1px solid rgba(201,168,76,0.45);
@@ -44,14 +49,38 @@
       border-radius: 6px;
       padding: 24px;
       text-align: center;
-      text-decoration: none;
+      cursor: pointer;
       transition: all 0.3s;
+      position: relative;
+      user-select: none;
     }
     .bank-card:hover {
       transform: translateY(-3px);
       border-color: var(--gold);
       box-shadow: 0 12px 35px rgba(61,26,102,0.12);
     }
+    .bank-card.selected {
+      border-color: var(--gold) !important;
+      box-shadow: 0 0 0 2px var(--gold), 0 12px 35px rgba(201,168,76,0.2) !important;
+    }
+    .bank-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 10px; right: 12px;
+      background: var(--gold);
+      color: white;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* TBC and Credo stay as external links */
+    a.bank-card {
+      text-decoration: none;
+      display: block;
+    }
+
     .bank-logo {
       width: 100%;
       max-width: 170px;
@@ -85,9 +114,156 @@
       color: var(--text-light);
       font-size: 0.85rem;
     }
+    .soon-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 10px;
+      background: rgba(138,127,160,0.12);
+      border-radius: 20px;
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── BOG Panel (shown when BOG selected) ── */
+    .bog-panel {
+      display: none;
+      background: linear-gradient(135deg, #fffdf7, #ffffff);
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 8px;
+      padding: 36px 40px;
+      margin-bottom: 48px;
+      box-shadow: 0 8px 32px rgba(201,168,76,0.12);
+    }
+    .bog-panel.visible { display: block; }
+    .bog-panel h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--purple-dark);
+      margin-bottom: 8px;
+    }
+    .bog-panel p {
+      color: var(--text-mid);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    /* Product Select */
+    .product-select-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 12px;
+    }
+    .product-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .product-option {
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 6px;
+      padding: 16px 14px;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-align: center;
+    }
+    .product-option:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.05);
+    }
+    .product-option.selected {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      box-shadow: 0 0 0 1.5px var(--gold);
+    }
+    .product-option .prod-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--purple-dark);
+      margin-bottom: 4px;
+    }
+    .product-option .prod-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--gold-dark);
+      font-weight: 700;
+    }
+
+    /* Submit Button */
+    .bog-submit-btn {
+      width: 100%;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .bog-submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(61,26,102,0.3);
+    }
+    .bog-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .bog-logo-inline {
+      height: 24px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Status messages */
+    .bog-message {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      display: none;
+    }
+    .bog-message.visible { display: block; }
+    .bog-message.error {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.25);
+      color: #dc2626;
+    }
+    .bog-message.info {
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-dark);
+    }
+
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
     @media (max-width: 900px) {
       .installment-page { padding: 100px 24px 56px; }
       .bank-grid { grid-template-columns: 1fr; }
+      .product-options { grid-template-columns: 1fr; }
+      .bog-panel { padding: 24px 20px; }
     }
   </style>
 </head>
@@ -105,25 +281,68 @@
   <main class="installment-page">
     <a href="index.html" class="back-btn">← მთავარ გვერდზე დაბრუნება</a>
     <h1>განვადება</h1>
-    <p>აირჩიეთ სასურველი ბანკი და გააგრძელეთ განაცხადი შესაბამის პლატფორმაზე.</p>
+    <p>აირჩიეთ სასურველი ბანკი. BOG-ის განვადება შეგიძლიათ გააგრძელოთ პირდაპირ ამ გვერდიდან.</p>
 
+    <!-- ── Bank Selection ── -->
     <div class="bank-grid">
-      <a class="bank-card bog-card" href="https://bankofgeorgia.ge" target="_blank">
-        <img class="bank-logo" src="Bank_of_Georgia_logo.png" alt="საქართველოს ბანკის ლოგო">
+
+      <!-- BOG — clickable (JS-ით ვამუშავებთ) -->
+      <div class="bank-card bog-card" id="bogCard" onclick="selectBOG()">
+        <img class="bank-logo" src="Bank_of_Georgia_logo.png" alt="საქართველოს ბანკი">
         <div class="bank-name">BOG</div>
         <div class="bank-desc">საქართველოს ბანკი</div>
-      </a>
-      <a class="bank-card tbc-card" href="https://tbcbank.ge" target="_blank">
-        <img class="bank-logo" src="Tbc-logo-ka_GE.svg.png" alt="თიბისი ბანკის ლოგო">
+      </div>
+
+      <!-- TBC — external link -->
+      <a class="bank-card tbc-card" href="https://tbcbank.ge/web/ge/installment" target="_blank" rel="noopener">
+        <img class="bank-logo" src="Tbc-logo-ka_GE_svg.png" alt="TBC Bank">
         <div class="bank-name">TBC</div>
         <div class="bank-desc">TBC Bank</div>
+        <span class="soon-badge">tbcbank.ge</span>
       </a>
-      <a class="bank-card credo-card" href="https://credobank.ge" target="_blank">
-        <img class="bank-logo" src="credo.png" alt="კრედო ბანკის ლოგო">
+
+      <!-- Credo — external link -->
+      <a class="bank-card credo-card" href="https://credobank.ge" target="_blank" rel="noopener">
+        <img class="bank-logo" src="credo.png" alt="Credo Bank">
         <div class="bank-name">Credo</div>
         <div class="bank-desc">Credo Bank</div>
+        <span class="soon-badge">credobank.ge</span>
       </a>
+
     </div>
+
+    <!-- ── BOG Panel (hidden until BOG selected) ── -->
+    <div class="bog-panel" id="bogPanel">
+      <h2>BOG განვადება</h2>
+      <p>
+        აირჩიეთ პროდუქტი და დააჭირეთ ღილაკს — გადამისამართდებით
+        საქართველოს ბანკის გვერდზე განაცხადის შესავსებად.
+      </p>
+
+      <label class="product-select-label">პროდუქტის არჩევა</label>
+      <div class="product-options" id="productOptions">
+        <div class="product-option" data-id="1" data-name="კლასიკური სამეული" data-amount="450" onclick="selectProduct(this)">
+          <div class="prod-name">კლასიკური სამეული</div>
+          <div class="prod-price">450 ₾</div>
+        </div>
+        <div class="product-option" data-id="2" data-name="კუთხის სამეული" data-amount="750" onclick="selectProduct(this)">
+          <div class="prod-name">კუთხის სამეული</div>
+          <div class="prod-price">750 ₾</div>
+        </div>
+        <div class="product-option" data-id="3" data-name="ლუქს დივანი" data-amount="1100" onclick="selectProduct(this)">
+          <div class="prod-name">ლუქს დივანი</div>
+          <div class="prod-price">1 100 ₾</div>
+        </div>
+      </div>
+
+      <button class="bog-submit-btn" id="bogBtn" onclick="startBOGPayment()" disabled>
+        <span id="bogBtnText">პროდუქტი აირჩიეთ</span>
+        <span id="bogBtnSpinner" class="spinner" style="display:none"></span>
+      </button>
+
+      <div class="bog-message" id="bogMessage"></div>
+    </div>
+
   </main>
 
   <footer>
@@ -144,5 +363,99 @@
   </footer>
 
   <script src="main.js"></script>
+  <script>
+    /* ══════════════════════════════════════════
+       Worker URL — შეცვალე შენი Worker-ის URL-ით
+       მაგ: https://rbili-aveji-worker.bekaname.workers.dev
+    ══════════════════════════════════════════ */
+    const WORKER_URL = 'https://YOUR_WORKER_NAME.YOUR_ACCOUNT.workers.dev';
+
+    /* ── სახელმწიფო ─────────────────────────── */
+    let selectedProduct = null;
+
+    /* ── BOG ბარათის არჩევა ─────────────────── */
+    function selectBOG() {
+      document.getElementById('bogCard').classList.add('selected');
+      document.getElementById('bogPanel').classList.add('visible');
+      // Smooth scroll to panel
+      setTimeout(() => {
+        document.getElementById('bogPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    /* ── პროდუქტის არჩევა ──────────────────── */
+    function selectProduct(el) {
+      document.querySelectorAll('.product-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+
+      selectedProduct = {
+        id:     el.dataset.id,
+        name:   el.dataset.name,
+        amount: parseFloat(el.dataset.amount),
+      };
+
+      const btn = document.getElementById('bogBtn');
+      btn.disabled = false;
+      document.getElementById('bogBtnText').textContent =
+        `BOG-ით განვადება — ${el.dataset.amount} ₾`;
+    }
+
+    /* ── BOG Payment შექმნა ─────────────────── */
+    async function startBOGPayment() {
+      if (!selectedProduct) return;
+
+      const btn     = document.getElementById('bogBtn');
+      const txtEl   = document.getElementById('bogBtnText');
+      const spinEl  = document.getElementById('bogBtnSpinner');
+      const msgEl   = document.getElementById('bogMessage');
+
+      /* Loading state */
+      btn.disabled    = true;
+      txtEl.textContent = 'BOG-ს უკავშირდება…';
+      spinEl.style.display = 'block';
+      msgEl.className  = 'bog-message';
+      msgEl.textContent = '';
+
+      try {
+        const res = await fetch(`${WORKER_URL}/create-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount:      selectedProduct.amount,
+            productId:   selectedProduct.id,
+            productName: selectedProduct.name,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          throw new Error(data.error || 'Worker error');
+        }
+
+        if (!data.redirectUrl) {
+          throw new Error('BOG redirect URL ვერ მივიღეთ');
+        }
+
+        /* BOG-ის გვერდზე გადამისამართება */
+        window.location.href = data.redirectUrl;
+
+      } catch (err) {
+        console.error('BOG error:', err);
+
+        msgEl.textContent = 'შეცდომა მოხდა. სცადეთ კიდევ ერთხელ ან დაგვიკავშირდით: 598 12 04 26';
+        msgEl.className   = 'bog-message error visible';
+
+        btn.disabled = false;
+        txtEl.textContent = `BOG-ით განვადება — ${selectedProduct.amount} ₾`;
+        spinEl.style.display = 'none';
+      }
+    }
+
+    /* ── URL params-ით BOG ავტო-გახსნა ─────── */
+    if (new URLSearchParams(window.location.search).get('bank') === 'bog') {
+      window.addEventListener('DOMContentLoaded', selectBOG);
+    }
+  </script>
 </body>
 </html>

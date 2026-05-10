@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>გადახდა ვერ მოხერხდა — რბილი AvEji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .result-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+      background: var(--off-white);
+    }
+    .result-card {
+      background: var(--white);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 8px;
+      padding: 56px 48px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(239,68,68,0.06);
+    }
+    .result-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2.2rem;
+    }
+    .result-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--purple-dark);
+      margin-bottom: 12px;
+    }
+    .result-subtitle {
+      color: var(--text-mid);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .info-box {
+      background: #fff9f9;
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      text-align: left;
+      line-height: 1.9;
+    }
+    .info-box ul { margin-left: 18px; }
+    .divider-gold {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 28px 0;
+    }
+    .result-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--purple);
+      color: var(--white);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .btn-retry:hover { background: var(--purple-dark); transform: translateY(-2px); }
+    .btn-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--purple);
+      border: 1px solid rgba(91,45,142,0.3);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .btn-phone:hover {
+      background: rgba(91,45,142,0.06);
+      border-color: var(--purple);
+    }
+    @media (max-width: 600px) {
+      .result-card { padding: 36px 24px; }
+      .result-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">რბილი<span> AvEji</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#products">პროდუქტები</a></li>
+    <li><a href="index.html#how">შეკვეთა</a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="nav-cta">Facebook</a></li>
+  </ul>
+</nav>
+
+<div class="result-page">
+  <div class="result-card">
+
+    <div class="result-icon">✕</div>
+
+    <h1 class="result-title">განვადება ვერ მოხერხდა</h1>
+    <p class="result-subtitle">
+      სამწუხაროდ, ამ ეტაპზე განვადება ვერ დამუშავდა.<br>
+      ეს შეიძლება რამდენიმე მიზეზით მოხდეს:
+    </p>
+
+    <div class="info-box">
+      <ul>
+        <li>ბანკმა განაცხადი უარყო</li>
+        <li>გადახდა გაუქმდა</li>
+        <li>ტექნიკური პრობლემა</li>
+      </ul>
+      <br>
+      შეგიძლიათ კვლავ სცადოთ ან დაგვიკავშირდეთ პირდაპირ —
+      სიამოვნებით გიპასუხებთ!
+    </div>
+
+    <div class="divider-gold"></div>
+
+    <div class="result-btns">
+      <a href="installment.html" class="btn-retry">↺ კვლავ სცადე</a>
+      <a href="tel:+995598120426" class="btn-phone">📞 598 12 04 26</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

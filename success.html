@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>გადახდა წარმატებით — რბილი AvEji</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .result-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+      background: var(--off-white);
+    }
+    .result-card {
+      background: var(--white);
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 8px;
+      padding: 56px 48px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(61,26,102,0.08);
+    }
+    .result-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2.2rem;
+    }
+    .result-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--purple-dark);
+      margin-bottom: 12px;
+    }
+    .result-subtitle {
+      color: var(--text-mid);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .order-info {
+      background: var(--off-white);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      font-size: 0.85rem;
+    }
+    .order-row:last-child { border-bottom: none; }
+    .order-label { color: var(--text-light); }
+    .order-value { color: var(--purple-dark); font-weight: 600; }
+    .status-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-completed {
+      background: rgba(34,197,94,0.12);
+      color: #15803d;
+    }
+    .status-pending {
+      background: rgba(201,168,76,0.15);
+      color: var(--gold-dark);
+    }
+    .status-rejected {
+      background: rgba(239,68,68,0.12);
+      color: #dc2626;
+    }
+    .divider-gold {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 28px 0;
+    }
+    .result-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--purple);
+      color: var(--white);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+    .btn-home:hover { background: var(--purple-dark); transform: translateY(-2px); }
+    .btn-fb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--purple);
+      border: 1px solid rgba(91,45,142,0.3);
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .btn-fb:hover {
+      background: rgba(91,45,142,0.06);
+      border-color: var(--purple);
+    }
+    .loading-state { color: var(--text-light); font-size: 0.85rem; }
+    @media (max-width: 600px) {
+      .result-card { padding: 36px 24px; }
+      .result-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">რბილი<span> AvEji</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#products">პროდუქტები</a></li>
+    <li><a href="index.html#how">შეკვეთა</a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="nav-cta">Facebook</a></li>
+  </ul>
+</nav>
+
+<div class="result-page">
+  <div class="result-card">
+
+    <div class="result-icon">✓</div>
+
+    <h1 class="result-title">გმადლობთ!</h1>
+    <p class="result-subtitle">
+      თქვენი განაცხადი წარმატებით გაიგზავნა.<br>
+      ჩვენ მალე დაგიკავშირდებით.
+    </p>
+
+    <div class="order-info" id="orderInfo">
+      <div class="order-row loading-state">
+        <span>შეკვეთის ინფო იტვირთება…</span>
+      </div>
+    </div>
+
+    <div class="divider-gold"></div>
+
+    <div class="result-btns">
+      <a href="index.html" class="btn-home">🏠 მთავარი გვერდი</a>
+      <a href="https://www.facebook.com/profile.php?id=100077737552645" target="_blank" class="btn-fb">f Facebook</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ── Worker URL — შეცვალე შენი Worker-ის URL-ით ── */
+const WORKER_URL = 'https://YOUR_WORKER_NAME.YOUR_ACCOUNT.workers.dev';
+
+(async () => {
+  const params  = new URLSearchParams(window.location.search);
+  const orderId = params.get('order');
+  const el      = document.getElementById('orderInfo');
+
+  if (!orderId) {
+    el.innerHTML = '<div class="order-row"><span class="order-label">შეკვეთის ID ვერ მოიძებნა</span></div>';
+    return;
+  }
+
+  try {
+    const res  = await fetch(`${WORKER_URL}/status/${orderId}`);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.error);
+
+    const statusMap = {
+      completed: { label: 'დამტკიცდა',  cls: 'status-completed' },
+      rejected:  { label: 'უარყოფილია', cls: 'status-rejected'  },
+      pending:   { label: 'განიხილება', cls: 'status-pending'   },
+    };
+    const s = statusMap[data.status] || { label: data.status, cls: 'status-pending' };
+
+    el.innerHTML = `
+      <div class="order-row">
+        <span class="order-label">სტატუსი</span>
+        <span class="status-badge ${s.cls}">${s.label}</span>
+      </div>
+      <div class="order-row">
+        <span class="order-label">პროდუქტი</span>
+        <span class="order-value">${data.productName || '—'}</span>
+      </div>
+      <div class="order-row">
+        <span class="order-label">თანხა</span>
+        <span class="order-value">${data.amount ? data.amount + ' ₾' : '—'}</span>
+      </div>
+      <div class="order-row">
+        <span class="order-label">შეკვეთის ID</span>
+        <span class="order-value" style="font-size:0.75rem;word-break:break-all">${orderId}</span>
+      </div>
+    `;
+  } catch (err) {
+    el.innerHTML = `
+      <div class="order-row">
+        <span class="order-label">შეკვეთის ID</span>
+        <span class="order-value" style="font-size:0.75rem;word-break:break-all">${orderId}</span>
+      </div>
+      <div class="order-row">
+        <span class="order-label" style="color:#dc2626">სტატუსი ვერ ჩაიტვირთა</span>
+      </div>
+    `;
+  }
+})();
+</script>
+
+</body>
+</html>
