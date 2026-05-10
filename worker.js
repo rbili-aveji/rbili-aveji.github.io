@@ -18,13 +18,15 @@ const BOG_ORDER_URL = 'https://api.bog.ge/payments/v1/ecommerce/orders';
 const SITE_URL = 'https://rbili-aveji.github.io';
 
 /* ─── BOG-ის Public Key (Callback Signature ვერიფიკაციისთვის) */
-const BOG_PUBLIC_KEY_PEM = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu4RUyAw3+CdkS3ZNILQh
+const BOG_PUBLIC_KEY_PEM = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu4RUyAw3+CdkS3ZNILQh
 zHI9Hemo+vKB9U2BSabppkKjzjjkf+0Sm76hSMiu/HFtYhqWOESryoCDJoqffY0Q
 1VNt25aTxbj068QNUtnxQ7KQVLA+pG0smf+EBWlS1vBEAFbIas9d8c9b9sSEkTrr
 TYQ90WIM8bGB6S/KLVoT1a7SnzabjoLc5Qf/SLDG5fu8dH8zckyeYKdRKSBJKvhx
 tcBuHV4f7qsynQT+f2UYbESX/TLHwT5qFWZDHZ0YUOUIvb8n7JujVSGZO9/+ll/g
 4ZIWhC1MlJgPObDwRkRd8NFOopgxMcMsDIZIoLbWKhHVq67hdbwpAq9K9WMmEhPn
-PwIDAQAB`;
+PwIDAQAB
+-----END PUBLIC KEY-----`;
 
 /* ─── CORS Headers ─────────────────────────────────────────── */
 const CORS = {
@@ -37,13 +39,16 @@ const CORS = {
    HELPER: BOG Access Token მიღება
 ══════════════════════════════════════════════════════════════ */
 async function getBOGToken(env) {
+  const basicAuth = btoa(`${env.BOG_CLIENT_ID}:${env.BOG_CLIENT_SECRET}`);
+
   const res = await fetch(BOG_TOKEN_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: {
+      'Authorization': `Basic ${basicAuth}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
     body: new URLSearchParams({
-      grant_type:    'client_credentials',
-      client_id:     env.BOG_CLIENT_ID,
-      client_secret: env.BOG_CLIENT_SECRET,
+      grant_type: 'client_credentials',
     }),
   });
 
@@ -59,45 +64,63 @@ async function getBOGToken(env) {
 /* ══════════════════════════════════════════════════════════════
    HELPER: BOG Order შექმნა
 ══════════════════════════════════════════════════════════════ */
-async function createBOGOrder(token, { amount, productId, productName }, workerUrl, env) {
+async function createBOGOrder(
+  token,
+  { amount, productId, productName, paymentMethod, loanType, loanMonth },
+  workerUrl,
+  env
+) {
   /* უნიკალური შიდა ID — KV-შია შენახული */
   const externalOrderId = crypto.randomUUID();
 
   const orderBody = {
     callback_url: `${workerUrl}/callback`,
     external_order_id: externalOrderId,
-    purchase_units: [
-      {
-        currency: 'GEL',
-        total_amount: amount,
-        basket: [
-          {
-            quantity:    1,
-            unit_price:  amount,
-            product_id:  String(productId),
-            description: productName,
-          },
-        ],
-      },
-    ],
+    purchase_units: {
+      currency: 'GEL',
+      total_amount: amount,
+      basket: [
+        {
+          product_id: String(productId),
+          description: String(productName),
+          quantity: 1,
+          unit_price: amount,
+        },
+      ],
+    },
     redirect_urls: {
       success: `${SITE_URL}/success.html?order=${externalOrderId}`,
       fail:    `${SITE_URL}/fail.html?order=${externalOrderId}`,
     },
   };
 
+  if (paymentMethod === 'bog_loan') {
+    orderBody.payment_method = ['bog_loan'];
+    orderBody.config = {
+      loan: {
+        type: loanType || 'standard',
+        month: (typeof loanMonth === 'number' && loanMonth > 0) ? loanMonth : 12,
+      },
+    };
+  }
+
   const res = await fetch(BOG_ORDER_URL, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
+      'Accept-Language': 'ka',
       'Content-Type':  'application/json',
+      'Idempotency-Key': crypto.randomUUID(),
     },
     body: JSON.stringify(orderBody),
   });
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`BOG Order Error ${res.status}: ${err}`);
+    const correlationId = res.headers.get('x-correlation-id') || 'n/a';
+    throw new Error(
+      `BOG Order Error ${res.status} (x-correlation-id: ${correlationId}): ${err} | payload=${JSON.stringify(orderBody)}`
+    );
   }
 
   const data = await res.json();
@@ -131,8 +154,11 @@ async function createBOGOrder(token, { amount, productId, productName }, workerU
 async function verifyBOGSignature(payloadText, signatureBase64) {
   try {
     /* PEM → binary */
-    const cleaned = BOG_PUBLIC_KEY_PEM.replace(/\s/g, '');
-    const binary  = Uint8Array.from(atob(cleaned), c => c.charCodeAt(0));
+    const cleaned = BOG_PUBLIC_KEY_PEM
+      .replace(/-----BEGIN PUBLIC KEY-----/g, '')
+      .replace(/-----END PUBLIC KEY-----/g, '')
+      .replace(/\s+/g, '');
+    const binary = Uint8Array.from(atob(cleaned), c => c.charCodeAt(0));
 
     const cryptoKey = await crypto.subtle.importKey(
       'spki',
@@ -142,7 +168,8 @@ async function verifyBOGSignature(payloadText, signatureBase64) {
       ['verify']
     );
 
-    const sigBytes     = Uint8Array.from(atob(signatureBase64), c => c.charCodeAt(0));
+    const normalizedSig = signatureBase64.replace(/^sha256\s+/i, '').trim();
+    const sigBytes = Uint8Array.from(atob(normalizedSig), c => c.charCodeAt(0));
     const payloadBytes = new TextEncoder().encode(payloadText);
 
     return await crypto.subtle.verify(
@@ -180,7 +207,7 @@ export default {
         const body = await request.json();
 
         /* Validation */
-        const { amount, productId, productName } = body;
+        const { amount, productId, productName, paymentMethod, loanType, loanMonth } = body;
         if (!amount || !productId || !productName) {
           return Response.json(
             { error: 'Missing required fields: amount, productId, productName' },
@@ -199,7 +226,12 @@ export default {
 
         /* Token + Order */
         const token  = await getBOGToken(env);
-        const result = await createBOGOrder(token, { amount, productId, productName }, workerUrl, env);
+        const result = await createBOGOrder(
+          token,
+          { amount, productId, productName, paymentMethod, loanType, loanMonth },
+          workerUrl,
+          env
+        );
 
         return Response.json(result, { headers: CORS });
 
@@ -237,23 +269,24 @@ export default {
         }
 
         /* 2. Payload დამუშავება */
-        const data            = JSON.parse(payloadText);
-        const externalOrderId = data.external_order_id;
-        const bogStatus       = data.order_status?.key || 'unknown';
+        const data = JSON.parse(payloadText);
+        const externalOrderId = data.external_order_id || data.body?.external_order_id;
+        const bogStatus = data.order_status?.key || data.body?.order_status?.key || 'unknown';
+        const bogOrderStatus = data.order_status || data.body?.order_status || null;
 
         if (externalOrderId) {
           const stored = await env.KV.get(`order:${externalOrderId}`);
           if (stored) {
             const order     = JSON.parse(stored);
             order.status    = bogStatus;        /* completed / rejected / refunded… */
-            order.bogStatus = data.order_status;
+            order.bogStatus = bogOrderStatus;
             order.updatedAt = new Date().toISOString();
             await env.KV.put(
               `order:${externalOrderId}`,
               JSON.stringify(order),
               { expirationTtl: 60 * 60 * 24 * 90 }
             );
-            console.log(`Order ${externalOrderId} → ${bogStatus}`);
+            console.error(`Order ${externalOrderId} -> ${bogStatus}`);
           }
         }
 
